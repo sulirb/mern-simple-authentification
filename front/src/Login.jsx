@@ -5,26 +5,34 @@ import axios from "axios";
 import "./Login.css";
 
 const Login = () => {
+  // State variables for form inputs and component state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [code, setCode] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  // Hook for programmatic navigation
   const navigate = useNavigate();
+
+  // Hook for managing cookies
   // eslint-disable-next-line no-unused-vars
   const [cookies, setCookie] = useCookies(["token"]);
 
+  // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Send login request to the server
       const response = await axios.post(`http://localhost:3000/auth/login`, {
         email,
         password,
         code,
       });
       setMessage(response.data.message);
+
       if (response.status === 200) {
-        // Connexion réussie, stockez le token dans le navigateur (par exemple, dans localStorage ou un cookie)
+        // If login is successful, store token and user ID in cookies
         const token = response.data.token;
         const userId = response.data.userId;
         setCookie("token", token, {
@@ -37,13 +45,15 @@ const Login = () => {
           maxAge: 3600 * 24,
           secure: true,
         });
+
+        // Set submission state and redirect after a delay
         setIsSubmitted(true);
         setTimeout(() => {
-          navigate("/admin/wr");
+          navigate("/");
         }, 2000);
       }
-      // Gérer la connexion réussie (par exemple, stocker le token JWT et rediriger)
     } catch (error) {
+      // Handle login error
       setMessage(error.response?.data?.message || "Error");
     }
   };
@@ -52,8 +62,10 @@ const Login = () => {
     <div className="login-page">
       <h2>Login</h2>
       {isSubmitted ? (
-        <div>User is successfully logged in</div>
+        // Show success message if login is successful
+        <div className="is-submitted">User is successfully logged in</div>
       ) : (
+        // Show login form if not submitted
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email">Email:</label>
@@ -88,6 +100,7 @@ const Login = () => {
           <button type="submit">Connect</button>
         </form>
       )}
+      {/* Display any messages (success or error) */}
       {message && <p className="message">{message}</p>}
     </div>
   );

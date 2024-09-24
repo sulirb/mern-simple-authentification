@@ -61,3 +61,7 @@ body {
   margin-top: 15px;
   color: #ff6b6b;
 }
+
+.is-submitted {
+  color: #ff6b6b;
+}
