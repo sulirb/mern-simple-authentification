@@ -36,7 +36,7 @@ route.post("/", async (req, res) => {
     <h2>Bonjour,</h2>
     <p>Merci de vous être inscrit sur notre plateforme ! Pour finaliser votre inscription, veuillez utiliser le code de vérification ci-dessous :</p>
     <h3 style="color: #4CAF50;">Code de vérification : ${verificationCode}</h3>
-    <p>Ce code est valable pendant 24 heures. Si vous ne parvenez pas à vérifier votre compte dans ce délai, vous devrez demander un nouveau code.</p>
+    <p>Nous vous conseillons d'écrire ce code sur un papier et de supprimer le mail. Sachez que ce code vous sera demandé à chaque connexion sur notre plateforme.</p>
     <p>Si vous n'avez pas demandé cette inscription, veuillez ignorer cet email.</p>
     <p>Nous vous remercions pour votre confiance et restons à votre disposition pour toute question.</p>
     <p>Cordialement,<br>L'équipe [Nom de votre entreprise]</p>
@@ -51,7 +51,6 @@ route.post("/", async (req, res) => {
       email,
       password: hashedPassword,
       verificationCode,
-      codeExpiration: new Date(Date.now() + 24 * 60 * 60 * 1000), // Expire dans 24 heures
     });
 
     await user.save();

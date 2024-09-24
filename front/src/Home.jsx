@@ -1,10 +1,14 @@
-import "./App.css";
+import "./Home.css";
 
 function Home() {
   return (
-    <div>
-      <a href="/signup">Sign up</a>
-      <a href="/login">Login</a>
+    <div className="home-container">
+      <a href="/signup" className="home-button signup">
+        Sign up
+      </a>
+      <a href="/login" className="home-button login">
+        Login
+      </a>
     </div>
   );
 }
