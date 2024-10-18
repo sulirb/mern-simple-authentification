@@ -1,6 +1,7 @@
 // Import required modules
 const express = require("express");
 const cors = require("cors");
+const mysql = require("mysql2");
 require("dotenv").config(); // Load environment variables
 const helmet = require("helmet");
 require("express-async-errors"); // Handle async errors in Express
@@ -13,12 +14,34 @@ const app = express();
 
 // Get MongoDB connection string from environment variables
 const mongoDatabase = process.env.MONGODB_NAME;
+const sqlhost = process.env.SQL_HOST;
+const sqluser = process.env.SQL_USER;
+const sqlpassword = process.env.SQL_PASSWORD;
+const sqldb = process.env.SQL_DATABASE;
 
 // Connect to MongoDB
-mongoose
+/*mongoose
   .connect(mongoDatabase)
   .then(() => console.log("Successfully connected to MongoDB!"))
-  .catch((error) => console.log("Failed to connect to MongoDB: " + error));
+  .catch((error) => console.log("Failed to connect to MongoDB: " + error));*/
+
+const connection = mysql.createConnection({
+  host: sqlhost,
+  user: sqluser,
+  password: sqlpassword,
+  database: sqldb,
+});
+
+connection.connect((err) => {
+  if (err) {
+    console.error(
+      "Erreur lors de la connexion à la base de données :",
+      err.message
+    );
+    return;
+  }
+  console.log("Connecté à la base de données MySQL");
+});
 
 // Middleware setup
 app.use(cors()); // Enable CORS for all routes

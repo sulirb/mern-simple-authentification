@@ -1,5 +1,5 @@
 // Import required modules and models
-const User = require("../../models/User.js");
+const User = require("../../models/SQLUser.js");
 const jwt = require("../../managers/jwt.js");
 const express = require("express");
 const bcrypt = require("bcrypt");

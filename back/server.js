@@ -11,7 +11,7 @@ const http = require("http");
 if (!PORT) console.warn("PORT may be set in .env (default: 4000)");
 
 // Set a default PORT if not provided
-PORT = 3000;
+PORT = 4000;
 
 // Set the port for the Express app
 app.set("port", PORT);

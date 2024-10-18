@@ -1,5 +1,5 @@
 // Import required modules and models
-const User = require("../../models/User");
+const User = require("../../models/SQLUser");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const express = require("express");
@@ -15,8 +15,8 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    user: "your_email@gmail.com",
-    pass: "###",
+    user: "losc596@gmail.com",
+    pass: "tugl ixlt pmzv rkac",
   },
 });
 
@@ -24,6 +24,16 @@ const transporter = nodemailer.createTransport({
 route.post("/", async (req, res) => {
   try {
     console.log("Starting signup process");
+    // Check if a user with the same email address already exists
+    /*const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      // User with the same email address already exists, return an error
+      throw new HttpError(400, {
+        message: "User with this email address already exists",
+      });
+    }*/
+
     // Extract email and password from request body
     const { email, password } = req.body;
     console.log("Received email:", email);
