@@ -14,17 +14,21 @@ const app = express();
 
 // Get MongoDB connection string from environment variables
 const mongoDatabase = process.env.MONGODB_NAME;
+
+// Get MySQL connection string from environment variables
 const sqlhost = process.env.SQL_HOST;
 const sqluser = process.env.SQL_USER;
 const sqlpassword = process.env.SQL_PASSWORD;
 const sqldb = process.env.SQL_DATABASE;
 
 // Connect to MongoDB
+
 /*mongoose
   .connect(mongoDatabase)
   .then(() => console.log("Successfully connected to MongoDB!"))
   .catch((error) => console.log("Failed to connect to MongoDB: " + error));*/
 
+// Connect to MySQL
 const connection = mysql.createConnection({
   host: sqlhost,
   user: sqluser,
@@ -34,13 +38,10 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
   if (err) {
-    console.error(
-      "Erreur lors de la connexion à la base de données :",
-      err.message
-    );
+    console.error("Erreur during connection to the database :", err.message);
     return;
   }
-  console.log("Connecté à la base de données MySQL");
+  console.log("Connected to MySQL database");
 });
 
 // Middleware setup
